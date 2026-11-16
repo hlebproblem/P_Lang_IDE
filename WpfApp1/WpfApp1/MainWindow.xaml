@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
         
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        
+        Title="Plang IDE" Height="450" Width="800"
+        Background="#121314"
+        SizeChanged="Window_SizeChanged">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <avalonEdit:TextEditor Name="codeArea"
+                               
+                               Grid.Row="0"
+                               VerticalAlignment="Top"
+                               
+                               ShowLineNumbers="True"
+                               HorizontalScrollBarVisibility="Hidden"/>
+        <Rectangle x:Name="verticalStretchRectangle"
+                   
+                   Grid.Row="1"
+                   Fill="#121314"
+                   VerticalAlignment="Top"
+                   
+                   MouseLeftButtonDown="VerticalRectangle_MouseDown"
+                   MouseLeftButtonUp="VerticalRectangle_MouseUp"
+                   MouseMove="VerticalRectangle_MouseMove"/>
+        <avalonEdit:TextEditor Name="outputArea"
+                               
+                               Grid.Row="2"
+                               VerticalAlignment="Top"/>
     </Grid>
 </Window>
