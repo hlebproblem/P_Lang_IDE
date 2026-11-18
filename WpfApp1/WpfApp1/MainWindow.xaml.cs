@@ -20,28 +20,47 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool isDraggable = false;
+        private bool isVRSDraggable = false;
+        private double codePart = 0.75f;
+
+        private double currentWindowWidth = 800;
+        private double currentWindowHeight = 450;
 
         public MainWindow()
         {
             InitializeComponent();
 
         }
-
-        private void VerticalRectangle_MouseMove(object sender, MouseEventArgs e)
+        private void Mouse_Moved(object sender, MouseEventArgs e)
         {
-            if (isDraggable)
+            Point currentPos = e.GetPosition(this);
+            if (isVRSDraggable)
             {
-                Console.WriteLine("qwe");
+                codePart = 1 - (currentWindowHeight - currentPos.Y) / currentWindowHeight;
+                if (codePart > 0.95d) codePart = 0.95d;
+                if (codePart < 0.05d) codePart = 0.05d;
+                codeArea.Height = currentWindowHeight * codePart;
+                outputArea.Height = currentWindowHeight * 1 - codePart;
+                /*switch (codePart) 
+                {
+                    case > 0.95d:
+                        codePart = 0.95d; break;
+                    case < 0.05d:
+                        codePart = 0.05d; break;
+                    default: break;
+                } */
+
             }
         }
         private void VerticalRectangle_MouseDown(object sender, MouseEventArgs e)
         {
-            isDraggable = true;
+            verticalStretchRectangle.CaptureMouse();
+            isVRSDraggable = true;
         }
         private void VerticalRectangle_MouseUp(object sender, MouseEventArgs e)
         {
-            isDraggable = false;
+            verticalStretchRectangle.ReleaseMouseCapture();
+            isVRSDraggable = false;
         }
 
         /*public void Window_KeyDown(object sender, KeyEventArgs e)
@@ -53,11 +72,11 @@ namespace WpfApp1
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double currentWidth = e.NewSize.Width;
-            double currentHeight = e.NewSize.Height - 5;
+            currentWindowWidth = e.NewSize.Width;
+            currentWindowHeight = e.NewSize.Height - 10;
 
-            codeArea.Height = currentHeight * 0.75;
-            outputArea.Height = currentHeight * 0.25;
+            codeArea.Height = currentWindowHeight * codePart;
+            outputArea.Height = currentWindowHeight * 1-codePart;
         }
     }
 }

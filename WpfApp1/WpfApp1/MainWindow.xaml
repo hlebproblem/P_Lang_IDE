@@ -8,9 +8,12 @@
         
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         
+        
+        
         Title="Plang IDE" Height="450" Width="800"
         Background="#121314"
-        SizeChanged="Window_SizeChanged">
+        SizeChanged="Window_SizeChanged"
+        PreviewMouseMove="Mouse_Moved">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -28,13 +31,14 @@
                                HorizontalScrollBarVisibility="Hidden"/>
         <Rectangle x:Name="verticalStretchRectangle"
                    
+                   Height="5"
                    Grid.Row="1"
-                   Fill="#121314"
+                   Fill="Red"
                    VerticalAlignment="Top"
+                   Cursor="ScrollNS"
                    
                    MouseLeftButtonDown="VerticalRectangle_MouseDown"
-                   MouseLeftButtonUp="VerticalRectangle_MouseUp"
-                   MouseMove="VerticalRectangle_MouseMove"/>
+                   MouseLeftButtonUp="VerticalRectangle_MouseUp"/> <!--MouseMove="VerticalRectangle_MouseMove"-->
         <avalonEdit:TextEditor Name="outputArea"
                                
                                Grid.Row="2"
